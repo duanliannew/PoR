@@ -1,5 +1,5 @@
 include(gtest)
-add_executable(por_test ./sha256_test.cpp ./bit_operation_test.cpp ./tagged_hash_test.cpp ./merkle_root_test.cpp)
+add_executable(por_test ./sha256_test.cpp ./bit_operation_test.cpp ./tagged_hash_test.cpp ./merkle_root_test.cpp ./por_db_test.cpp)
 target_compile_options(por_test PRIVATE -Wall -g -fno-access-control)
 target_include_directories(por_test PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(por_test PRIVATE gtest_main sha256)

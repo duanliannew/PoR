@@ -1,12 +1,8 @@
 #include "tagged_hash.h"
 
 namespace crypto {
-TaggedHasher::TaggedHasher(const std::vector<uint8_t>& tag) {
-  sha256::BlockHasher block_hasher;
-  auto tag_hash = block_hasher.Hash(tag);
-
-  hasher_.Append(tag_hash);
-  hasher_.Append(tag_hash);
+TaggedHasher::TaggedHasher(const std::vector<uint8_t>& tag) : tag_(tag) {
+  doReset();
 }
 
 size_t TaggedHasher::Append(const std::vector<uint8_t>& data_chunk) {
@@ -16,4 +12,16 @@ size_t TaggedHasher::Append(const std::vector<uint8_t>& data_chunk) {
 }
 
 std::vector<uint8_t> TaggedHasher::Hash() { return hasher_.Hash(); }
+
+void TaggedHasher::Reset() { doReset(); }
+
+void TaggedHasher::doReset() {
+  hasher_.Reset();
+
+  sha256::BlockHasher block_hasher;
+  auto tag_hash = block_hasher.Hash(tag_);
+
+  hasher_.Append(tag_hash);
+  hasher_.Append(tag_hash);
+}
 }  // namespace crypto

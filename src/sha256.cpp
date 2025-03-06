@@ -75,6 +75,11 @@ std::vector<uint8_t> StreamHasher::Hash() {
   return HashInByte(h_);
 }
 
+void StreamHasher::Reset() {
+  h_ = h;
+  total_bytes_ = 0;
+}
+
 // Preprocess the last chunk of data by padding, such that the size of the
 // resulting data is a multiple of 512 bit. suppose the original data is L-bit
 // sized.

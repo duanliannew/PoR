@@ -30,3 +30,18 @@ TEST(sha256, tagged_hash) {
   tagged_hasher.Append(data);
   EXPECT_EQ(tagged_hasher.Hash(), block_hasher.Hash(concatenated_data));
 }
+
+TEST(sha256, tagged_hash_reset) {
+  std::string tag = "ProofOfReserve_Leaf";
+  std::vector<uint8_t> tag_vec(tag.cbegin(), tag.cend());
+  crypto::TaggedHasher tagged_hasher(tag_vec);
+  std::vector<uint8_t> data = {0x10, 0xdd, 0xcd, 0xdd, 0x31};
+  tagged_hasher.Append(data);
+  auto hv1 = tagged_hasher.Hash();
+
+  tagged_hasher.Reset();
+  tagged_hasher.Append(data);
+  auto hv2 = tagged_hasher.Hash();
+
+  EXPECT_EQ(hv1, hv2);
+}

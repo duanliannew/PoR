@@ -15,6 +15,7 @@ class StreamHasher {
   StreamHasher();
   size_t Append(const std::vector<uint8_t>& data_chunk);
   std::vector<uint8_t> Hash();
+  void Reset();
 
  private:
   std::array<uint32_t, 8> h_;
