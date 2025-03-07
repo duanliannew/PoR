@@ -20,7 +20,7 @@ std::string MerkleProof::GenerateProof(const std::vector<uint8_t>& tag,
 
   // verify if the root matches and construct proof path
   // add the leaf that is to be verified
-  std::string proof = "(" + serializeHash(raw_data_[0].second);
+  std::string proof = serializeHash(raw_data_[0].second);
   std::vector<uint8_t> calculated_root = raw_data_[0].second;
 
   // add sibling node of each layer up to merkle root
@@ -45,7 +45,6 @@ std::string MerkleProof::GenerateProof(const std::vector<uint8_t>& tag,
 
   // add merkle root
   proof += " " + serializeHash(calculated_root);
-  proof += ")";
   if (calculated_root != root) {
     return "";
   }

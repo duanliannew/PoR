@@ -215,8 +215,8 @@ TEST(PoRDB, merkle_proot_three_user) {
   std::string user2_detail = "(2,2222)";
   std::string user3_detail = "(3,3333)";
 
-  std::map<uint64_t, std::string> user_data{{1, user1_detail},
-                                            {2, user2_detail}, {3, user3_detail}};
+  std::map<uint64_t, std::string> user_data{
+      {1, user1_detail}, {2, user2_detail}, {3, user3_detail}};
   std::string unused;
   for (const auto& [id, content] : user_data) {
     EXPECT_EQ(db.UserInfo(id, unused), content);
@@ -285,8 +285,8 @@ TEST(PoRDB, merkle_proot_three_user) {
   EXPECT_TRUE(path[2].first);
 
   auto user3 = db.UserInfo(3, unused);
-  //std::cout << user3 << std::endl;
-  //std::cout << unused << std::endl;
+  // std::cout << user3 << std::endl;
+  // std::cout << unused << std::endl;
 
   EXPECT_EQ(db.generateProof(3, path), std::vector<uint8_t>{});
 

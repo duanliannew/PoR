@@ -6,7 +6,7 @@
 namespace crypto {
 class PoRDB {
  public:
-  PoRDB() = default;
+  static PoRDB& Instance();
   ~PoRDB();
   // 1. read user data file and create index
   // 2. generate and persist merkle tree
@@ -16,6 +16,7 @@ class PoRDB {
   std::string UserInfo(uint64_t id, std::string& proof) const;
 
  private:
+  PoRDB() = default;
   bool regularFileExists(const std::string& file);
   // we put a sha256 value in the begining of index file and merkle file
   bool verifyFileFingerPrint(const std::string& file,

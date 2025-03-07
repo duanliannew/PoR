@@ -19,6 +19,11 @@
 #include "tagged_hash.h"
 
 namespace crypto {
+PoRDB& PoRDB::Instance() {
+  static PoRDB db;
+  return db;
+}
+
 PoRDB::~PoRDB() {
   unmmapFile(index_map);
   unmmapFile(merkle_map);
@@ -359,6 +364,7 @@ bool PoRDB::preprocessUserFile(const std::string& user_data,
   merkle_file.seekp(0);
   hv = merkle_hasher.Hash();
   merkle_file.write(reinterpret_cast<char*>(hv.data()), hv.size());
+  merkle_file.close();
   return true;
 }
 
