@@ -1,7 +1,7 @@
 #include "wrapper.h"
 
-#include <string>
 #include <cstdlib>
+#include <string>
 
 #include "por_db.h"
 
@@ -20,7 +20,7 @@ const char* UserInfo(uint64_t id) {
   info += " " + proof;
 
   size_t size = info.size() + 1;
-  char* result = reinterpret_cast<char*>(malloc(size*(sizeof(char))));
+  char* result = reinterpret_cast<char*>(malloc(size * (sizeof(char))));
   std::copy(info.cbegin(), info.cend(), result);
   result[size] = '\0';
   return result;

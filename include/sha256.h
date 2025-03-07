@@ -2,7 +2,7 @@
 #include <array>
 #include <cstdint>
 #include <vector>
-
+// Implement sha256 hash algorithm(https://en.wikipedia.org/wiki/SHA-2)
 namespace crypto {
 namespace sha256 {
 class BlockHasher {

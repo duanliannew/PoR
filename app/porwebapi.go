@@ -2,7 +2,7 @@ package main
 
 /*
 #cgo CFLAGS: -I../include
-#cgo LDFLAGS: -L../build/src -lpor -lstdc++
+#cgo LDFLAGS: -L./ -lpor -lstdc++
 #include "wrapper.h"
 #include <stdlib.h>
 */
