@@ -3,7 +3,7 @@ project(PoR VERSION 0.9
             DESCRIPTION "PoR Implementation"
             LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -13,7 +13,7 @@ list(APPEND CMAKE_MODULE_PATH ${MODULE_CMAKE_DIR})
 add_custom_target(
     format
     ALL
-    COMMAND /usr/bin/clang-format-19
+    COMMAND clang-format-19
             -style=google 
             -i ${CMAKE_SOURCE_DIR}/src/*.cpp ${CMAKE_SOURCE_DIR}/include/*.h
                ${CMAKE_SOURCE_DIR}/test/*.cpp

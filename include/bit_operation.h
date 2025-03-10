@@ -12,7 +12,8 @@ T RightRotate(T v, size_t i) {
     i = i % s;
     return (v >> i) | (v << (s - i));
   } else {
-    static_assert(false);
+    // FIXME: for some older compiler static_assert doesn't work right. So I commented out below line.
+    // static_assert(false);
     return {};
   }
 }

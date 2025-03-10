@@ -11,3 +11,7 @@ por_service: por_lib
 
 launch_web_api: por_service
 	cd ./app && ./por_web_api -p eight_users.txt
+
+docker:
+	docker build -t test .
+	docker run  -p 8080:8080 test
