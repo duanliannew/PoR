@@ -4,6 +4,7 @@
 
 #include <chrono>
 #include <filesystem>
+#include <thread>
 
 #include "tagged_hash.h"
 
@@ -293,3 +294,52 @@ TEST(PoRDB, merkle_proot_three_user) {
   std::filesystem::remove(index_file);
   std::filesystem::remove(merkle_file);
 }
+/*
+TEST(PoRDB, parallel_preprocess) {
+  std::vector<std::string> users = {
+    "../app/big_user_1.txt",
+    "../app/big_user_2.txt",
+    "../app/big_user_3.txt",
+    "../app/big_user_4.txt",
+    "../app/big_user_5.txt",
+    "../app/big_user_6.txt",
+    "../app/big_user_7.txt",
+    "../app/big_user_8.txt"
+  };
+
+  auto start = std::chrono::steady_clock::now();
+
+  std::vector<std::thread> threads;
+
+  for (const auto& user : users) {
+    auto t = std::thread([user]() {
+      std::string index_file = user + ".index";
+      std::string merkle_file = user + ".merkle";
+      std::filesystem::remove(index_file);
+      std::filesystem::remove(merkle_file);
+
+      crypto::PoRDB db;
+      db.preprocessUserFile(user, index_file, merkle_file);
+      EXPECT_TRUE(db.verifyFileFingerPrint(index_file, crypto::PoRDB::kIndexMagic));
+      EXPECT_TRUE(
+          db.verifyFileFingerPrint(merkle_file, crypto::PoRDB::kMerkleMagic));
+
+      std::filesystem::remove(index_file);
+      std::filesystem::remove(merkle_file);
+
+      std::cout << "processing " + user + " finished" << std::endl;
+    });
+
+    threads.push_back(std::move(t));
+  }
+
+  for (auto& t : threads) {
+    t.join();
+  }
+
+  auto end = std::chrono::steady_clock::now();
+
+  std::cout << "parallel preprocessing cost: "
+            << std::chrono::duration<double, std::micro>(end - start).count()
+            << "us" << std::endl;
+}*/

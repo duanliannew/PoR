@@ -2,6 +2,13 @@
 
 namespace crypto {
 TaggedHasher::TaggedHasher(const std::vector<uint8_t>& tag) : tag_(tag) {
+  sha256::BlockHasher block_hasher;
+  tag_hash_ = block_hasher.Hash(tag_);
+
+  hasher_init_.Reset();
+  hasher_init_.Append(tag_hash_);
+  hasher_init_.Append(tag_hash_);
+
   doReset();
 }
 
@@ -16,12 +23,9 @@ std::vector<uint8_t> TaggedHasher::Hash() { return hasher_.Hash(); }
 void TaggedHasher::Reset() { doReset(); }
 
 void TaggedHasher::doReset() {
-  hasher_.Reset();
-
-  sha256::BlockHasher block_hasher;
-  auto tag_hash = block_hasher.Hash(tag_);
-
-  hasher_.Append(tag_hash);
-  hasher_.Append(tag_hash);
+  //hasher_.Reset();
+  //hasher_.Append(tag_hash_);
+  //hasher_.Append(tag_hash_);
+  hasher_ = hasher_init_;
 }
 }  // namespace crypto
